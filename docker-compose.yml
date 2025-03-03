@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    command: >
+      bash -c "
+      echo 'CREATE DATABASE test;' > /docker-entrypoint-initdb.d/init.sql &&
+      docker-entrypoint.sh postgres
+      "
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass mypassword
+  

@@ -21,7 +21,7 @@ RUN apt-get install -y curl
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Ensure the installed binary is on the `PATH`
-ENV PATH="/root/.local/bin/:$PATH "
+ENV PATH="/root/.local/bin/:$PATH"
 
 COPY pyproject.toml ./
 COPY .python-version ./

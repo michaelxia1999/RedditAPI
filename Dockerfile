@@ -20,7 +20,7 @@ RUN apt-get install -y curl
 # Install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Ensure the installed binary is on the `PATH`
+# Ensure the installed binary is on the PATH
 ENV PATH="/root/.local/bin/:$PATH"
 
 COPY pyproject.toml ./

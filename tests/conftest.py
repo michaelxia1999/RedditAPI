@@ -33,7 +33,7 @@ async def db_session(app_instance: FastAPI):
     yield session
     await session.close()
 
-
+# Make sure database is stateless between each test
 @pytest_asyncio.fixture(scope="function", loop_scope="session", autouse=True)
 async def db_rollback(db_session: AsyncSession):
     yield

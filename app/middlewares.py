@@ -1,7 +1,6 @@
 import uuid
 from app.exceptions import BaseError, RateLimitExceeded
-from app.redis import get_redis
-from fastapi import Depends, Request, Response
+from fastapi import Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from redis.asyncio import Redis

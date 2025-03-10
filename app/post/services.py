@@ -29,8 +29,11 @@ async def update_post(post_id: int, user_id: int, post_data: dict, db: AsyncSess
     return result.rowcount > 0
 
 
-# (Post, user_display_name, upvote_count, downvote_count, comment_count) | None
 async def get_post(post_id: int, db: AsyncSession):
+    """
+    output: (Post, user_display_name, upvote_count, downvote_count, comment_count) | None
+
+    """
     Upvote = aliased(PostUpvote)
     Downvote = aliased(PostUpvote)
 
@@ -54,14 +57,16 @@ async def get_post(post_id: int, db: AsyncSession):
     return row
 
 
-# ([(Post, user_display_name, upvote_count, downvote_count, comment_count, score_cursor)], next_score_cursor, next_id_cursor) | None
 async def get_posts(
     search_query: str, db: AsyncSession, score_cursor: float | None, id_cursor: int | None
 ):
+    """
+    output: ([(Post, user_display_name, upvote_count, downvote_count, comment_count, score_cursor)], next_score_cursor, next_id_cursor) | None
+    """
     Upvote = aliased(PostUpvote)
     Downvote = aliased(PostUpvote)
 
-    limit = 3
+    limit = 10
 
     if score_cursor is None or id_cursor is None:
         query = (

@@ -59,8 +59,11 @@ async def delete_comment_upvote(user_id: int, comment_id: int, db: AsyncSession)
     return result.rowcount > 0
 
 
-# (Comment, user_display_name, upvote_count, downvote_count, reply_count) | None
 async def get_comment(comment_id: int, db: AsyncSession):
+    """
+    output: (Comment, user_display_name, upvote_count, downvote_count, reply_count) | None
+
+    """
     Upvote = aliased(CommentUpvote)
     Downvote = aliased(CommentUpvote)
     CommentReply = aliased(Comment)
@@ -85,11 +88,14 @@ async def get_comment(comment_id: int, db: AsyncSession):
     return row
 
 
-# [(Comment, user_display_name, upvote_count, downvote_count, reply_count), next_score_cursor, next_id_cursor] | None
 async def get_comments(
     post_id: int, db: AsyncSession, score_cursor: int | None, id_cursor: int | None
 ):
-    limit = 1
+    """
+    output: [(Comment, user_display_name, upvote_count, downvote_count, reply_count), next_score_cursor, next_id_cursor] | None
+
+    """
+    limit = 10
 
     Upvote = aliased(CommentUpvote)
     Downvote = aliased(CommentUpvote)
@@ -153,10 +159,13 @@ async def get_comments(
     return (rows, next_score_cursor, next_id_cursor)
 
 
-# [(Comment, user_display_name, upvote_count, downvote_count, reply_count), next_score_cursor, next_id_cursor] | None
 async def get_comment_replies(
     comment_id: int, db: AsyncSession, score_cursor: int | None, id_cursor: int | None
 ):
+    """
+    output: [(Comment, user_display_name, upvote_count, downvote_count, reply_count), next_score_cursor, next_id_cursor] | None
+
+    """
     limit = 10
 
     Upvote = aliased(CommentUpvote)

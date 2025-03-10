@@ -28,8 +28,11 @@ async def update_subreddit(
     return result.rowcount > 0
 
 
-# (Subreddit, user_display_name, follower_count) | None
 async def get_subreddit(subreddit_id: int, db: AsyncSession):
+    """
+    output: (Subreddit, user_display_name, follower_count) | None
+
+    """
     query = (
         select(
             Subreddit,
@@ -47,10 +50,12 @@ async def get_subreddit(subreddit_id: int, db: AsyncSession):
     return row
 
 
-# ([(Subreddit, user_display_name, follower_count, score_cursor)], next_score_cursor, next_id_cursor) | None
 async def get_subreddits(
     search_query: str, db: AsyncSession, score_cursor: float | None, id_cursor: int | None
 ):
+    """
+    output: ([(Subreddit, user_display_name, follower_count, score_cursor)], next_score_cursor, next_id_cursor) | None
+    """
     limit = 10
 
     if score_cursor is None or id is None:

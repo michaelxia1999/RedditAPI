@@ -15,7 +15,7 @@ ph = PasswordHasher()
 def create_access_token(
     sub: str, jwt_key: str, jwt_algorithm: str, jwt_ttl_sec: int
 ) -> tuple[str, int]:
-    exp = int(time.time()) + jwt_ttl_sec
+    exp = int(time.time()) + jwt_ttl_sec #  expiration time in second
     payload = {"sub": sub, "exp": exp}
     access_token = jwt.encode(payload=payload, key=jwt_key, algorithm=jwt_algorithm)
     return access_token, exp
@@ -24,8 +24,8 @@ def create_access_token(
 async def create_refresh_token(
     redis: Redis, user_id: int, refresh_token_ttl_sec: int
 ) -> tuple[str, int]:
-    refresh_token = str(uuid.uuid4())
-    await redis.set(name=refresh_token, value=user_id, ex=refresh_token_ttl_sec)
+    refresh_token = str(uuid.uuid4())   
+    await redis.set(name=refresh_token, value=user_id, ex=refresh_token_ttl_sec)    # store refresh token in redis
     exp = int(time.time()) + refresh_token_ttl_sec
     return refresh_token, exp
 
